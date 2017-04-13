@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>temporary</title>
+</head>
+<script src="vue.js"></script>
+<body>
+	<div class="vue">{{time}}</div>
+</body>
+<script>
+	var data = {time:'2017-3-30'};
+	var vm = new Vue({
+		el:'.vue',
+		data:data,
+		/*生命周期钩子，内部可以写入自定义逻辑*/
+		created:function(){
+			/*vm实例创建后调用*/
+			console.log('time is :'+this.time);//this指向vm实例
+		}
+	});
+
+	/*data.time会影响到vm.time，反之亦然*/
+	// data.time = '12';
+	// vm.time = '21';
+
+	/*data.time改变后调用*/
+	vm.$watch('time',function(newVal,oldVal){
+		console.log(newVal+'  '+oldVal);
+	});
+</script>
+</html>

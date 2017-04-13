@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>事件处理器</title>
+	<script src="vue.js"></script>
+</head>
+<body>
+	<div class="clickEvent">
+		<button @click="times+=1">增加1</button>
+		<p>这个按钮被点击了{{times}}次。</p>
+		<button @click="counter">通过方法调用</button>
+		<button @click="pass('传递参数')">传递参数</button>
+		<button @click="prevent('Hellow!',$event)">访问源生DOM事件</button>
+		<button @click.once="doSomething">once事件修饰符</button>
+		<p>
+			once事件修饰符，只执行一次（不像其他源生DOM事件修饰符，.once可以应用到自定义组件上），其他修饰符还有：<br>
+			阻止单击事件冒泡：v-on:click.stop="doThis"<br>
+			提交事件不再重载页面：v-on:submit.prevent="onSubmit"<br>
+			修饰符可以串联：v-on:click.stop.prevent="doThat"<br>
+			只有修饰符：v-on:submit.prevent<br>
+			添加事件侦听器时使用事件捕获模式：v-on:click.capture="doThis"<br>
+			只当事件在该元素本身（而不是子元素）触发时触发回调：v-on:click.self="doThat"<br>
+		</p>
+		<input type="text" v-model="data" @keyup.enter="enter">
+		<p>按键修饰符:enter，同13，只是提供了一些方便记住的别名，如enter，esc，delete等</p>
+		<p>2.1.0新增按键修饰符：alt，ctrl，shift，meta。meta为windows系统中的win键，各种系统中的类似键。</p>
+		<input type="text" @keyup.alt.67="clear">
+		<div @click.ctrl="ctrl">ctrl + click执行</div>
+	</div>
+</body>
+<script>
+	var vm_clickEvent = new Vue({
+		el:'.clickEvent',
+		data:{
+			times:0,
+			data:''
+		},
+		methods:{
+			counter:function(event){
+				this.times += 1;
+				alert(this.times);
+				alert(event.target.tagName);
+			},
+			pass:function(par){
+				alert(par);
+			},
+			prevent:function(msg,event){
+				if (event) event.preventDefault();
+				console.log(event);
+			},
+			doSomething:function(){
+				alert('事件修饰符');
+			},
+			enter:function(){
+				alert('enter为按键别名');
+			},
+			clear:function(){
+				alert('alt + c');
+			},
+			ctrl:function(){
+				alert('ctrl + click');
+			}
+		}
+	})
+</script>
+</html>

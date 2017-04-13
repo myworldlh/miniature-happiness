@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test</title>
+	<script src="vue.js"></script>
+</head>
+<body>
+	<div class="vue" v-bind:disabled="flag" v-bind:asd="'adf'">{{flag?text:window.test}}</div>
+	<div class="seen" v-if="seen">你可以看到我</div>
+	<div class="superLink"><a v-bind:href="url" target="_blank">点击进入百度</a></div>
+	<div id="btn"><button v-on:click="alert">点击查看详情</button></div>
+	<div class="filter">{{text|checkText}}</div>
+	<input type="text" class='input' v-bind:value="val|checkInput" />
+	<div class='apple' :id="id" @click="showTig">my world</div><!-- :为v-bind:的缩写，@为v-on缩写 -->
+</body>
+<script>
+	var vm = new Vue({
+		el:'.vue',
+		data:{
+			text:'vue',
+			flag:true,
+			window:{
+				test:'test'
+			}
+		}
+	});
+	var vm1 = new Vue({
+		el:'.seen',
+		data:{
+			seen:false
+		}
+	});
+	var superLink = new Vue({
+		el:'.superLink',
+		data:{
+			url:'https://www.baidu.com'
+		}
+	});
+	var vm_btn = new Vue({
+		el:'#btn button',
+		data:{
+			message:'hahahaha'
+		},
+		methods:{
+			alert:function(){
+				alert(this.message);
+			}
+		}
+	});
+	var vm_filter = new Vue({
+		el:'.filter',
+		data:{
+			text: 'filter过滤器'
+		},
+		filters:{
+			checkText:function(value){
+				if(value.trim().length == 0) return '这是必输项';
+				if(isNaN(Number(value))) return '只能输入数字';
+			}
+		}
+	});
+	var vm_input = new Vue({
+		el:'.input',
+		data:{
+			val:2
+		},
+		filters:{
+			checkInput:function(value){
+				if(value>10) return '不能大于10';
+				if(value<5)	return '不能小于5';
+			}
+		}
+	});
+	var vm_apple = new Vue({
+		el:'.apple',
+		data:{
+			id:'apple'
+		},
+		methods:{
+			showTig:function(){
+				alert('hellow world!');
+			}
+		}
+	})
+</script>
+</html>

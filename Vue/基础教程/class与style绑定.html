@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>class与style绑定</title>
+	<style>
+		.active{color: red;}
+		.fontSize{font-size: 22px;}
+	</style>
+	<script src="vue.js"></script>
+</head>
+<body>
+	<div class="static">
+		<span v-bind:class="{active:isActive,fontSize:status}">class与style绑定</span><br>
+		<span v-bind:class="objClass">直接绑定对象</span><br>
+		<span v-bind:class="comClass">绑定计算属性</span><br>
+		<span v-bind:class="[active1,fontSize1]">数组语法绑定class</span><br>
+		<span v-bind:class="[active2 ? active1:'',fontSize1]">数组语法，三元运算绑定</span><br>
+		<span v-bind:class="[{active:isActive},fontSize1]">数组语法，防止有过多三元逻辑运算，带有对象的绑定</span><br>
+	</div>
+	<!-- 元素内部应用的vm下的变量如fruit、objClass，直接引用就好，如果使用了{{}}，会报此组件“无效的表达”错误。在内容部分调用则使用{{}} -->
+	<!-- 且注意，v-for不能使用在组件根部，只能放在组件内部 -->
+	<component class="too" v-bind:class="objClass" v-bind:todo="fruit"></component>
+	<div class="style" v-bind:style="styleObj">对象语法绑定style样式</div>
+	<div class="arrStyle" v-bind:style="[styleObj1,styleObj2]">数组语法，多对象样式</div>
+	<!-- <div class="parent">
+		<span class="son">{{son}}</span>
+	</div> -->
+</body>
+<script>
+	/*嵌套vm对象，只有最外层的好事，子不会创建出来，所以调用son也是父的son。
+	var vm_parent = new Vue({
+		el:'.parent',
+		data:{
+			parent:'parent',
+			son:'son'
+		}
+	});
+	var vm_son = new Vue({
+		el:'.son',
+		data:{
+			son:'son_son'
+		}
+	});*/
+	var vm_class = new Vue({
+		el:'.static',
+		data:{
+			isActive: true,
+			status: false,
+			objClass: {
+				active : false,
+				fontSize: true
+			},
+			active1: 'active',
+			fontSize1:'fontSize',
+			active2: true
+		},
+		computed:{
+			comClass:function(){
+				return {
+					active : this.isActive,
+					fontSize: this.status
+				}
+			}
+		}
+	});
+	/*自定义组件后，必须用new Vue()声明出一个实例来，然后才能生效*/
+	Vue.component('component',{/*自定义组件的名称必须使用小写字母，不能使用大写字母*/
+		props:['todo'],
+		template:'<p class="boo doo">将class属性应用到自定义的组件上:{{todo}}</p>'
+	});
+	var vm_component = new Vue({
+		el:'.too',
+		data:{
+			objClass:{
+				active:true,
+				fontSize:false
+			},
+			fruit:'apple'
+		}
+	});
+	/*添加的style属性当需要特定的前缀时，如-webkit-、-moz-等，Vue.js 会自动侦测并添加相应的前缀*/
+	var vm_style = new Vue({
+		el:'.style',
+		data:{
+			styleObj:{
+				color:'red',
+				'font-size': '22px',
+			}
+		}
+	});
+	var vm_arrStyle = new Vue({
+		el:'.arrStyle',
+		data:{
+			styleObj1:{
+				color:'blue','font-size':'18px'
+			},
+			styleObj2:{
+				padding:'5px',margin:'5px'
+			}
+		}
+	});
+</script>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>列表渲染</title>
+	<script src="vue.js"></script>
+</head>
+<body>
+	<div class="for">
+		<ul>
+			<li :title="item.title" v-for="(item,index) in items">parents - {{index}} - {{item.text}}</li>
+			<p>你也可以用 of 替代 in 作为分隔符，因为它是最接近 JavaScript 迭代器的语法。</p>
+			<li :title="item.title" v-for="(item,index) of items">parents - {{index}} - {{item.text}}</li>
+			<p>如同 v-if 模板，你也可以用带有 v-for 的 template 标签来渲染多个元素块。例如：</p>
+			<template v-for="item of items">
+				<li :title="item.title">{{item.text}}</li>
+				<p :title="item.title">li和p都会被循环渲染</p>
+			</template>
+		</ul>
+	</div>
+	<div class="objFor">
+		<ul>
+			<p>你也可以用 v-for 通过一个对象的属性来迭代。三个参数分别为值，键，索引</p>
+			<li v-for="(value,key,index) in message">{{value}}-{{key}}-{{index}}</li>
+		</ul>
+		<div>
+			<!-- 整数迭代 -->
+			<span v-for="n in 10">{{n}}  </span>
+		</div>
+	</div>
+	<!-- 组件与v-for -->
+	<div class="component">
+		<input type="text" v-model="input" @keyup.enter="addNewTodo" placeholder="Add a todo">
+		<ul>
+			<li is="my-component" v-for="(todo,index) in todos" :todo="todo" @remove="todos.splice(index,1)" :key="todo"></li>
+		</ul>
+	</div>
+</body>
+<script>
+	var vm_for = new Vue({
+		el:'.for',
+		data:{
+			items:[
+				{text:'apple',title:'apple'},{text:'banana',title:'banana'},{text:'orange',title:'orange'}
+			]
+		}
+	});
+	var vm_objFor = new Vue({
+		el:'.objFor',
+		data:{
+			message:{ok:'ok',warn:'warn',error:'error'},
+		}
+	});
+	Vue.component('my-component',{
+		props:['todo'],
+		template:'<li>{{todo}}<button @click="$emit(\'remove\')">X</button></li>'
+	});
+	var vm_mycomponent = new Vue({
+		el:'.component',
+		data:{
+			input:'',
+			todos:['first','second','third']
+		},
+		methods:{
+			addNewTodo:function(){
+				this.todos.push(this.input);
+				this.input = '';
+			}
+		}
+	});
+</script>
+</html>

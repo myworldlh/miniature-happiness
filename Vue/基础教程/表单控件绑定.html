@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>表单控件绑定</title>
+	<script src="vue.js"></script>
+</head>
+<body>
+	<div class="form">
+		<input type="text" v-model="text" value="因为绑定了实例中的值，所以value已经不会生效了"><br>
+		<textarea v-model="textarea" cols="30" rows="3" placeholder="enter the message"></textarea>
+		<p style="white-space: pre;">{{textarea}}</p>
+		<p>多选框</p>
+		<input type="checkbox" id="checkbox" v-model="checked">
+		<label for="checkbox">{{ checked }}</label><br>
+		<input type="checkbox" id="jack1" value="jack1" v-model="arr">
+		<label for="jack1">jack1</label>
+		<input type="checkbox" id="jack2" value="jack2" v-model="arr">
+		<label for="jack2">jack2</label>
+		<input type="checkbox" id="jack3" value="jack3" v-model="arr">
+		<label for="jack3">jack3</label>
+		<p>绑定同一数组：{{arr}}</p>
+		<p>单选框</p>
+		<input type="radio" id="one" value="One" v-model="radio">
+		<label for="one">One</label>
+		<input type="radio" id="two" value="Two" v-model="radio">
+		<label for="two">Two</label>
+		<p>radio:{{radio}}</p>
+		<p>选择列表</p>
+		<select v-model="select">
+		<!-- 如果没有value属性，则显示为text值，否则显示为value值 -->
+			<option>test1</option>
+			<option value="value2">test2</option>
+			<option value="value3">test3</option>
+		</select>
+		<p>checked:{{select}}</p>
+		<p>多选</p>
+		<select v-model="selected" multiple style="width: 50px;">
+			<option value="value1">text1</option>
+			<option value="value2">text2</option>
+			<option value="value3">text3</option>
+		</select>
+		<p>selected:{{selected}}</p>
+		<p>v-for来渲染option</p>
+		<select v-model="selected2">
+			<option v-for="option in options" :value="option.value">{{option.text}}</option>
+		</select>
+		<p>for循环：{{selected2}}</p>
+		<p>多选框：选中则vm.toggle = vm.a，没选中则vm.toggle = vm.b,同时会改变vm.toggle的值</p>
+		<input type="checkbox" v-model="toggle" :true-value="a" :false-value="b">toggle：{{toggle}}
+		<p>单选框：选中则vm.radios = vm.radios_a</p>
+		<input type="radio" v-model="radios" :value="radios_a">radios:{{radios}}
+		<p>选择列表设置</p>
+		<select v-model="haha">
+			<option :value="{name:123}">456</option>
+		</select>
+		haha:{{haha.name}}
+		<p>修饰符lazy,number,trim</p>
+		lazy:相当change事件<input type="text" v-model.lazy="lazy">{{lazy}}<br>
+		number:总是返回Number类型（如果原值的转换结果为 NaN 则返回原值）<input type="text" v-model.number="number" type="number">{{number}}<br>
+		trim:自动过滤输入的收尾空格<input type="text" v-model.trim="trim"><span style="white-space: pre;">{{trim}}</span>
+	</div>
+</body>
+<script>
+	var form = new Vue({
+		el:'.form',
+		data:{
+			text:'实例中的值',
+			textarea:'',
+			checked:false,
+			arr:[],//绑定的如果是数组，则通过勾选将value值放入数组中，如果是字符串或者布尔值，则会实现全选功能
+			radio:'',
+			select:'',
+			selected:[],//multiple多选属性，Windows下按住ctrl来多选，因为是多选，所以该出为数组，字符串会报错
+			selected2:'',
+			options:[{value:'value1',text:'text1'},{value:'value2',text:'text2'},{value:'value3',text:'text3'}],
+			toggle:'',a:'a',b:'b',
+			radios:'b',radios_a:'a',
+			haha:'',
+			lazy:'',
+			number:'',
+			trim:''
+		}
+	});
+</script>
+</html>

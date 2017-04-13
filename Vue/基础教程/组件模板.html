@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>组件模板</title>
+	<script src="vue.js"></script>
+</head>
+<body>
+	<div id="vue">
+		<ul>
+			<todo-item v-for="item in messageList" v-bind:title="item.title" v-bind:todo="item"></todo-item>
+			<!-- v-bind:todo="item"中的item是传递的参数，是循环中的每个对象，到达代办项 -->
+		</ul>
+	</div>
+</body>
+<script>
+	/*自定一个名字为todo-item的新组件*/
+	Vue.component('todo-item',{
+		props:['todo'],//props类似于自定义属性，名为todo。（实际作用：作为一个参数，使li的内容是动态的）
+		template:'<li>{{todo.text}}</li>'/*代办项*/
+	});
+	var vue = new Vue({
+		el:'#vue',
+		data:{
+			messageList:[
+				{text:'蔬菜',title:'蔬菜'},
+				{text:'水果',title:'水果'},
+				{text:'植物',title:'植物'}
+			]
+		}
+	})
+</script>
+</html>
