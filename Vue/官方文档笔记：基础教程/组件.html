@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>组件</title>
+	<script src="vue.js"></script>
+</head>
+<body>
+	<div class='parent'>
+	<!-- 
+		<span is="my-component"></span>
+		<btns param="btns1"></btns>
+		<btns param="btns2"></btns>
+		<btns param="btns3"></btns>
+	
+		<p>{{total}}</p>
+		<p>如果需要绑定源生事件，使用native修饰符，否则不会生效</p>
+		<button-counter v-on:pass="addTotal" v-on:click.native="click"></button-counter>
+		<button-counter v-on:pass="addTotal" v-on:focus.native.once="click"></button-counter>
+		
+	-->
+	<p>组件v-model，需要一个输入的value和input实时监测输入的值并写事件更新value</p>
+	<my-input label='price' v-model="price" v-on:input="total">{{price}}</my-input>
+	</div>
+</body>
+<script>
+/*
+	//局部组件
+	var child = {template:'<div>A custom component!</div>'};
+	//全局组件
+	Vue.component('btns',{
+		props:['param'],//属性参数
+		template:'<button @click="counter+=1">{{counter}}{{param}}</button>',
+		data:function(){//data必须是function，可以返回一个对象来应用
+			return {
+				counter : 0
+			}
+		}
+	});
+	new Vue({
+		el:'.parent',
+		data:{
+			message:'msg'
+		},
+		components:{
+			'my-component': child
+		}
+	});
+
+	Vue.component('button-counter',{//自定义组件作用域只限于本组件本身，所以内部方法及属性外界不可用
+		template:'<button v-on:click="add">{{counter}}</button>',
+		data:function(){//data必须是function,为了防止多个相同组件中的counter互相影响，所以这里不使用return变量，而是直接return一个实际对象，为了让各自的counter互不干扰
+			return {
+				counter:0
+			}
+		},
+		methods:{
+			add:function(){
+				this.counter += 1;
+				this.$emit('pass');//触发这个pass方法，相当于click触发add，add触发了pass，pass触发了addTotal，实现total加1.
+			}
+		}
+	});
+	new Vue({
+		el:'.parent',
+		data:{
+			total:0
+		},
+		methods:{
+			addTotal:function(){
+				this.total += 1;
+			},
+			click:function(){
+				alert('click');
+			}
+		}
+	});
+*/
+	Vue.component('my-input',{
+		props:{
+			value:{
+				type:Number,
+				default:0
+			},
+			label:{
+				type:String,
+				default:''
+			}
+		},
+		template:'<label v-if="label">{{label}}:$<input type="text" ref="input" v-bind:value="value" v-on:input="updateValue($event.target.value)"></label>',
+		methods:{
+			updateValue:function(value){
+				this.$refs.input.value = value;
+				console.log(this.value)
+				this.$emit('input',Number(value));
+			}
+		}
+	});
+	new Vue({
+		el:'.parent',
+		data:{
+			price:0
+		},
+		methods:{
+			total:function(){
+
+			}
+		}
+	})
+</script>
+</html>

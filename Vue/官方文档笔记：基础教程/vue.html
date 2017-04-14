@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Vue</title>
+</head>
+<script src="vue.js"></script>
+<body>
+	<div id="vue" v-bind:title="message.title" v-if="see">{{message.content}}</div>
+	<div id="vue-2">
+		<span v-bind:title="message">time</span>
+	</div>
+	<div class="vue-3"><ul><li v-for="todo in list" v-bind:title="todo.title">
+		{{todo.text}}
+	</li></ul></div>
+	<button name="btn" v-on:click="reverseMessage">{{message}}</button>
+	<div class="vue-4">
+		<p>{{message}}</p>
+		<input type="text" v-model="message" />
+	</div>
+</body>
+<script>
+	var vue = new Vue({
+		el:'#vue',
+		data:{
+			message:{
+				title: 'titleMsg',
+				content: 'contentMsg'
+			},
+			see:true
+		}
+	});
+	var vue2 = new Vue({
+		el:'#vue-2',
+		data:{
+			message:'时间：' + new Date()
+		}
+	});
+	var vue3 = new Vue({
+		el:'.vue-3',
+		data:{
+			list:[
+				{
+					title:'这个是title1',
+					text:'这个是内容1'
+				},
+				{
+					title:'这个是title2',
+					text:'这个是内容2'
+				},
+				{
+					title:'这个是title3',
+					text:'这个是内容3'
+				}
+			]
+		}
+	});
+	var btn = new Vue({
+		el:'[name="btn"]',
+		data:{
+			message:'hello vue.js'
+		},
+		methods:{
+			reverseMessage:function(){
+				vue2.message = this.message = vue2.message.split(' ').reverse().join(' ');
+			}
+		}
+	});
+	var vue4 = new Vue({
+		el:'.vue-4',
+		data:{
+			message:'hellow world'
+		},
+	});
+</script>
+</html>asdasdad

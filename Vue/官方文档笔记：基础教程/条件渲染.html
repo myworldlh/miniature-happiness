@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>条件渲染</title>
+	<style>
+		.divIF{border: 1px solid #333;padding:15px;border-radius: 3px;}
+	</style>
+	<script src="vue.js"></script>
+</head>
+<body>
+	<div class="divIF">
+		<h1 v-if="ok">Yes</h1>
+		<h2 v-else>No</h2>
+		<!-- template是包装元素，最终不会渲染到页面当中 -->
+		<template v-if="ok">
+			<h1>Title</h1>
+			<p>Paragraph 1</p>
+			<p>Paragraph 2</p>
+		</template>
+		<!-- v-else必须紧跟v-if或者v-else-if之后，否则不会生效 -->
+		<div v-if="Math.random() > 0.5">
+			随机数大于0.5
+		</div>
+		<div v-else-if="Math.random() > 0.3">
+			随机数大于0.3
+		</div>
+		<div v-else>
+			新随机数：{{Math.random()}}
+		</div>
+	</div>
+	<div class="key">
+		<!-- vue.js会尽可能的高效渲染页面，是的页面的重用率很高，以下实例中，页面label和input部分不会因为v-if而重新渲染，
+		这就大大提高了页面的加载速度，所以，在输入框中输入的值不会被重置，如果想在切换的时候让元素重新渲染不被重用，则可以在想被重新渲染的元素上添加唯一值key属性即可。 -->
+		<template v-if="ok">
+			<label>username:</label>
+			<input type="text" placeholder="input username" key="username key">
+		</template>
+		<template v-else>
+			<label>email:</label>
+			<input type="text" placeholder="input email" key="email key">
+		</template>
+		<br>
+		<button @click="toggle">toggle</button><br>
+		<!-- v-if 是“真正的”条件渲染，因为它会确保在切换过程中条件块内的事件监听器和子组件适当地被销毁和重建。
+		v-if 也是惰性的：如果在初始渲染时条件为假，则什么也不做——直到条件第一次变为真时，才会开始渲染条件块。
+		相比之下， v-show 就简单得多——不管初始条件是什么，元素总是会被渲染，并且只是简单地基于 CSS 进行切换。
+		一般来说， v-if 有更高的切换开销，而 v-show 有更高的初始渲染开销。因此，如果需要非常频繁地切换，则使用 v-show 较好；如果在运行时条件不太可能改变，则使用 v-if 较好。 -->
+		<p v-show="ok">另一个用于根据条件展示元素的选项是 v-show 指令。不同的是带有 v-show 的元素始终会被渲染并保留在 DOM 中。v-show 是简单地切换元素的 CSS 属性 display 。
+			注意， v-show 不支持 template 语法，也不支持 v-else。</p>
+	</div>
+	<div class="for">
+		<ul>
+			<!-- 当 v-if 与 v-for 一起使用时，v-for 具有比 v-if 更高的优先级。 -->
+			<my-component v-if="ok" v-for="item in fruit" :title="item.title" :item="item"></my-component>
+		</ul>
+	</div>
+</body>
+<script>
+	var vm_divIF = new Vue({
+		el:'.divIF',
+		data:{
+			ok:true
+		}
+	});
+	var vm_key = new Vue({
+		el:'.key',
+		data:{
+			ok:true
+		},
+		methods:{
+			toggle:function(){
+				this.ok = this.ok? false:true;
+			}
+		}
+	});
+	Vue.component('my-component',{
+		props:['item'],
+		template:'<li>{{item.text}}</li>'
+	});
+	var vm_for = new Vue({
+		el:'.for',
+		data:{
+			fruit:[
+				{text:'apple',title:'apple'},{text:'banana',title:'banana'},{text:'orange',title:'orange'}
+			],
+			ok:false
+		}
+	});
+</script>
+</html>

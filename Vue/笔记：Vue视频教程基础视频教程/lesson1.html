@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>lesson1</title>
+</head>
+<body>
+	<div id="app">
+		<h1>{{message}}</h1>
+		<input type="text" v-model="message">
+		<p>{{$data}}</p>
+	</div>
+</body>
+<script src="vue.js"></script>
+<script>
+	new Vue({
+		el:'#app',
+		data:{
+			message:'Hello world!'
+		}
+	});
+</script>
+</html>
