@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>黑客帝国</title>
+	<style>
+		* {margin: 0; padding: 0;}
+		canvas {display: block;}
+		body {background: black;}
+	</style>
+</head>
+<body>
+	<canvas id="c"></canvas>
+</body>
+<script>
+	var c = document.getElementById("c");
+	c.height = window.innerHeight;
+	c.width = window.innerWidth;
+
+	var drop_size = 12;//字体大小
+	var columns = c.width/drop_size;//一行有多少个字
+
+	var chinese = "ムタ二コク1234567890シモラキリエスハヌトユABCDEF";//绘制内容
+	chinese = chinese.split("");//放入数组中，为了通过随机数通过下标取出来
+
+	var drops = [];
+	for(var i = 0; i < columns; i++)
+		drops[i] = 1;//作为动态设置纵坐标的参数，从第一行开始绘制
+
+	ctx = c.getContext('2d');//声明为2d的画布
+
+	function draw()//绘制一行
+	{
+		ctx.fillStyle = "rgba(0, 0, 0, 0.05)";//设置背景颜色、样式或模式、该样式会叠加效果（叠加是指当前的0.05倍，所以最终不会变成0）
+		ctx.fillRect(0, 0, c.width, c.height);//绘制画布的范围大小，默认画布为黑色
+
+		ctx.fillStyle = "#0f0";
+		ctx.font= drop_size + "px arial";
+		for(var i = 0; i < drops.length; i++)
+		{
+			text = chinese[Math.floor(Math.random()*chinese.length)];//随机的text内容
+			ctx.fillText(text, i*drop_size, drops[i]*drop_size);//字放置的位置
+
+			//0.975是要达到下雨的效果；当整个画布高度全部画完，则重来之前的绘制过程，drops[i] = 0后，再++就变成1了，回到最开始的绘制过程
+			if(drops[i]*drop_size > c.height && Math.random() > 0.975)
+				drops[i] = 0;
+
+			drops[i]++;//每绘制一个字就让对应的纵坐标加1，为了setinterval的时候从下一行开始绘制
+		}
+	}
+	setInterval(draw, 33);
+</script>
+</html>
