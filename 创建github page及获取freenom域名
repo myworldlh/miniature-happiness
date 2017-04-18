@@ -2,13 +2,29 @@
 1.github page初步了解，可以用来做什么。
 2.github page设置过程。
 3.freenom免费获取域名及相关知识。
-4.freenom获取免费域名需要的配置操作。
+4.将freenom免费域名搭载到github page上。
 
-一、github page初步了解，可以用来做什么。
+一、github page初步了解，可以用来做什么
   今天第一次接触了github page，之前一直没有接触过，只做了最简单的操作，以后有更新会及时补充。
   github page搭建网站。用github page可以制作自己的页面或者博客，而且是免费的，可以自行制作网页，然后搭载上去，可以通过访问域名的方式来访问自己搭载的
 网站，其过程极为简单，不过只能搭建一个网址。
 
-二、github page设置过程。
+二、github page设置过程
+  首先，创建一个库，给这个库的名字设置为XXX.github.io,XXX为自己设置的名字，后面的github.io不能修改，而且该文件只能创建一次，因为github page只能有
+一个，创建成功后，上传一个index.html的文件到该库，然后在浏览器中输入自己创建的github page地址：XXX.github.io即可在页面中浏览到index.html。
+ 
+三、 freenom免费获取域名及相关知识
+  进入http://www.freenom.com/zh/index.html?lang=zh，注册一个域名，选好域名后提交订单，开始设置域名的DNS。
+  （DNS：DNS域名商提供用来将域名解析成IP地址的DNS服务器，通常进入页面可以输入IP地址，也可以输入域名，因为域名是容易记住的，所以会将ip存在网络上，通过
+DNS域名解析器解析成IP，然后就可以访问页面了。
+  通常，在一个域名商下购买的域名，通过该域名商的DNS解析器解析的会比较快，因为是付费的，所以会提供服务器资源帮助解析，甚至可以实现秒解析，但是用一个域名
+想去别家的DNS解析器解析，要么不支持，要么会很慢，因为通常不会提供多少服务器资源帮助解析。）
+  综上所述，所以我们选择Use DNS下的Use Freenom DNS Service。这里的ip地址是服务器（固定ip）的ip地址，我们上面配置完成了github page提供的服务器，所以
+github page会分配一个固定ip给我们，我们只需要在命令行中输入：ping XXX.github.io，会显示出ip地址，使用这个ip地址给freenom即可。然后一步一步完成订单就
+可以了。
 
-...太晚了，明天再写，今天先这样哈~
+四、将freenom免费域名搭载到github page上
+  进入github中的github page库中，点击库中的setting，向下找到Custom domain，填写自己的域名，如果你已经有域名了，则保存成功后刷新即可看到：
+Your site is published at http://myworldlh.tk/（myworldlh.tk/是我的域名），如果你的域名不存在或者刚获取还没有被域名服务器解析，则等待他解析成功
+即可。成功后，在页面中输入域名或者github page页面，即可跳转到搭载的域名下的index.html中去，到此设置成功。
+
