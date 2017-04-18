@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>lesson5</title>
+</head>
+<body>
+	<div id="app">
+		<p>username:{{ username }}</p>
+		<input type="text" v-model="first">
+		<input type="text" v-model="last">
+		<p>Level:{{ level }}</p>
+	</div>
+</body>
+<script src="vue.js"></script>
+<script>
+	new Vue({
+		el:'#app',
+		data:{
+			first:'Tom',
+			last:'Jarry',
+			points:200
+		},
+		//computed一般存放的都是一些逻辑判断和业务逻辑，而方法则写在methods中
+		computed:{
+			username:function(){
+				return this.first + '  ' + this.last;
+			},
+			level:function(){
+				if(this.points >= 100)
+					return 'VIP会员';
+				return '普通会员';
+			}
+		}
+	})
+</script>
+</html>

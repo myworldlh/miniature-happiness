@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>lesson7</title>
+	<style>
+		.completed{text-decoration: line-through;}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<!-- :list的意思是让tasks的值不是一个字符串，而是实例化中tasks数组的值，然后把list传递给template模板 -->
+		<task-app :list="tasks"></task-app>
+	</div>
+	<!-- 可以复用的代码块 -->
+	<template id="tast-template">
+		<ul>
+			<!-- 模板接收list的值，然后循环显示出来 -->
+			<li @click="task.completed = !task.completed" :class="{'completed':task.completed}" v-for="task in list">{{ task.body }}</li>
+		</ul>
+	</template>
+</body>
+<script src="vue.js"></script>
+<script>
+	Vue.component('task-app',{
+		template:'#tast-template',
+		props:['list']
+	})
+	new Vue({
+		el:'#app',
+		data:{
+			tasks:[
+				{body:'go to work',completed:false},
+				{body:'learn the Vue js',completed:true},
+				{body:'go to shop',completed:false}
+			]
+		}
+	})
+</script>
+</html>

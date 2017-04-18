@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>lesson6</title>
+	<style>
+		.completed{text-decoration: line-through;}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<ul>
+			<!-- 三元判断 -->
+			<!-- <li :class="task.completed ? 'completed':''" v-for="task in tasks">{{ task.body }}</li> -->
+			<!-- 添加多个class -->
+			<!-- <li :class="['completed','turly',something?'something':'']" v-for="task in tasks">{{ task.body }}</li> -->
+			<!-- 对象方式 -->
+			<!-- <li :class="{'completed':task.completed}" v-for="task in tasks">{{ task.body }}</li> -->
+			<!-- 切换状态 -->
+			<li @click="toggleTask(task)" :class="{'completed':task.completed}" v-for="task in tasks">{{ task.body }}</li>
+		</ul>
+	</div>
+</body>
+<script src="vue.js"></script>
+<script>
+	new Vue({
+		el:'#app',
+		data:{
+			something:true,
+			tasks:[
+				{body:'go to work',completed:false},
+				{body:'learn the Vue js',completed:true},
+				{body:'go to shop',completed:false}
+			]
+		},
+		methods:{
+			toggleTask:function(task){
+				task.completed = ! task.completed;
+			}
+		}
+	})
+</script>
+</html>

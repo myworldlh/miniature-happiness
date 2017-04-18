@@ -5,20 +5,31 @@
 	<title>lesson4</title>
 </head>
 <body>
+<!-- 组件化的作用就是为了代码重用 -->
 	<div id="app">
-		
+		<counter heading="Likes" color="background: green"></counter>
+		<counter heading="Dislikes" color="background: red"></counter>
 	</div>
+<!-- template H5自带的标签，模板的作用 -->
+	<template id="count-template">
+		<div>
+			<h1>{{ heading }}</h1>
+			<button @click="count += 1" :style="color">{{ count }}</button>
+		</div>
+	</template>
 </body>
 <script src="vue.js"></script>
 <script>
-	new Vue({
-		el:'#app',
-		data:{
-			count:0
-		},
-		methods:{
-			
+	Vue.component('counter',{
+		template:'#count-template',
+		props:['heading','color'],
+		data:function(){
+			return { count : 0 };
 		}
+	});
+	//实例化Vue组件
+	new Vue({
+		el:'#app'
 	});
 </script>
 </html>
