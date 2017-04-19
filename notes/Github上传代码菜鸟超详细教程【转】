@@ -58,4 +58,11 @@ git push origin master  //将本地的文件上传到github的服务器上，这
 
 最后，你可以去项目页面查看了~~代码上传成功！
 
+备注git常用语法：
+1.添加文件       git add 文件名
+2.删除文件       git rm 文件名
+3.移动文件       git mv 文件名 目标目录
+4.返回指定版本   git reset --hard 项目版本号（commit记录中可以找到，历史版本中的full SHA）
+                git push -f origin master（强制提交）
+
 本文借鉴转载文章地址：http://www.cnblogs.com/ruofengzhishang/p/3842587.html，侵权必删
