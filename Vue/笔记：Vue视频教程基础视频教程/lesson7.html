@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div id="app">
-		<!-- :list的意思是让tasks的值不是一个字符串，而是实例化中tasks数组的值，然后把list传递给template模板 -->
+		<!-- :list的意思是把list绑定到Vue当中，这个list的值是Vue中的tasks，而不是一个字符串 -->
 		<task-app :list="tasks"></task-app>
 	</div>
 	<!-- 可以复用的代码块 -->

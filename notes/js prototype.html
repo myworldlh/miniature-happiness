@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>原型：prototype</title>
+	<style>
+		pre{
+			font: normal 14px arial,sans-serif
+		}
+	</style>
+</head>
+<body>
+	<h2>JS中的prototype</h2>
+	<pre>
+
+		JS中的phototype是JS中比较难理解的一个部分
+
+
+
+		本文基于下面几个知识点:
+
+		1 原型法设计模式
+
+		在.Net中可以使用clone()来实现原型法
+
+		原型法的主要思想是，现在有1个类A,我想要创建一个类B,这个类是以A为原型的,并且能进行扩展。我们称B的原型为A。
+
+		 
+
+		2 javascript的方法可以分为三类：
+
+		a 类方法
+
+		b 对象方法
+
+		c 原型方法
+
+		例子：
+
+		function People(name){
+		  this.name=name;
+		  //对象方法
+		  this.Introduce=function(){
+		    alert("My name is "+this.name);
+		  }
+		}
+		//类方法
+		People.Run=function(){
+		  alert("I can run");
+		}
+		//原型方法
+		People.prototype.IntroduceChinese=function(){
+		  alert("我的名字是"+this.name);
+		}
+
+		 
+
+		//测试
+
+		var p1=new People("Windking");
+
+		p1.Introduce();
+
+		People.Run();
+
+		p1.IntroduceChinese();
+
+
+
+		3 obj1.func.call(obj)方法
+
+		意思是将obj看成obj1,调用func方法
+
+		 
+
+		 
+
+		好了，下面一个一个问题解决：
+
+		 
+
+		prototype是什么含义？
+
+		 
+
+		javascript中的每个对象都有prototype属性，Javascript中对象的prototype属性的解释是：返回对象类型原型的引用。
+
+		A.prototype = new B();
+
+		理解prototype不应把它和继承混淆。A的prototype为B的一个实例，可以理解A将B中的方法和属性全部克隆了一遍。A能使用B的方法和属性。这里强调的是克隆而不是继承。可以出现这种情况：A的prototype是B的实例，同时B的prototype也是A的实例。
+
+		 
+
+		先看一个实验的例子：
+
+		function baseClass(){
+		  this.showMsg = function()
+		  {
+		     alert("baseClass::showMsg");   
+		  }
+		}
+
+		function extendClass()
+		{
+		}
+
+		extendClass.prototype = new baseClass();
+		var instance = new extendClass();
+		instance.showMsg(); // 显示baseClass::showMsg
+
+
+		我们首先定义了baseClass类，然后我们要定义extentClass，但是我们打算以baseClass的一个实例为原型，来克隆的extendClass也同时包含showMsg这个对象方法。
+
+		extendClass.prototype = new baseClass()就可以阅读为：extendClass是以baseClass的一个实例为原型克隆创建的。
+
+		 
+
+		那么就会有一个问题，如果extendClass中本身包含有一个与baseClass的方法同名的方法会怎么样？
+
+		下面是扩展实验2：
+
+		function baseClass(){
+		    this.showMsg = function()
+		    {
+		        alert("baseClass::showMsg");   
+		    }
+		}
+
+		function extendClass()
+		{
+		    this.showMsg =function ()
+		    {
+		        alert("extendClass::showMsg");
+		    }
+		}
+
+		extendClass.prototype = new baseClass();
+		var instance = new extendClass();
+
+		instance.showMsg();//显示extendClass::showMsg
+
+
+		实验证明：函数运行时会先去本体的函数中去找，如果找到则运行，找不到则去prototype中寻找函数。或者可以理解为prototype不会克隆同名函数。
+
+ 
+
+		那么又会有一个新的问题：
+
+		如果我想使用extendClass的一个实例instance调用baseClass的对象方法showMsg怎么办？
+
+		 
+
+		答案是可以使用call:
+
+		extendClass.prototype = new baseClass();
+		var instance = new extendClass();
+
+
+		var baseinstance = new baseClass();
+		baseinstance.showMsg.call(instance);//显示baseClass::showMsg
+
+
+		这里的baseinstance.showMsg.call(instance);阅读为“将instance当做baseinstance来调用，调用它的对象方法showMsg”
+
+		好了，这里可能有人会问，为什么不用baseClass.showMsg.call(instance);
+
+		这就是对象方法和类方法的区别，我们想调用的是baseClass的对象方法
+	</pre>
+	<p>
+		本文转自：<a href="http://www.cnblogs.com/yjf512/archive/2011/06/03/2071914.html">http://www.cnblogs.com/yjf512/archive/2011/06/03/2071914.html</a>
+		侵权必删
+	</p>
+</body>
+<script>
+	// 最后，下面这个代码如果理解清晰，那么这篇文章说的就已经理解了：
+
+	function baseClass(){
+		// 对象方法
+		this.showMsg = function(){
+			console.log('baseClass::showMsg');
+		}
+	}
+	// 类方法
+	baseClass.showMsg = function(){
+		console.log('baseClass::showMsg static');
+	}
+	function extendClass(){
+		this.showMsg = function(){
+			console.log('extendClass::showMsg');
+		}
+	}
+	extendClass.showMsg = function(){
+		console.log('extendClass::showMsg static');
+	}
+	// extendClass是以baseClass方法的实例为原型克隆创建的，可以使用baseClass的方法和属性，
+	// 但是不同于继承，这个克隆可以以互相的实例为原型就行创建。
+	// 被克隆的方法，如果重名，则不会被克隆过来，而使用原本的方法，没有重名的方法则会克隆过来
+	extendClass.prototype = new baseClass();
+	// instance是extendClass的实例，可以调用对象方法
+	var instance = new extendClass();
+
+	instance.showMsg(); // extendClass::showMsg
+	extendClass.showMsg(); // extendClass::showMsg static
+
+	baseClass.showMsg.call(instance); // baseClass::showMsg static
+	var baseInstance = new baseClass();
+	baseInstance.showMsg.call(instance); // baseClass::showMsg
+</script>
+</html>
