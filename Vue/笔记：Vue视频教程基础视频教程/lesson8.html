@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>lesson8</title>
+	<style>
+		.completed{text-decoration: line-through;}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<!-- :list的意思是把list绑定到Vue当中，这个list的值是Vue中的tasks，而不是一个字符串 -->
+		<task-app :list="tasks"></task-app>
+	</div>
+	<!-- 可以复用的代码块 -->
+	<template id="tast-template">
+		<ul>
+			<h1>My Task
+				<!-- finished变成0时隐藏 -->
+				<span v-show="finished">({{ finished }})</span>
+			</h1>
+			<!-- 模板接收list的值，然后循环显示出来 -->
+			<li @click="task.completed = !task.completed" :class="{'completed':task.completed}" v-for="task in list">
+				{{ task.body }}
+				<!-- 以为li绑定了click事件，所以他的子标签strong如果绑定事件就会产生事件冒泡，给click加上修饰符stop阻止时间冒泡即可 -->
+				<strong @click.stop="deleteTask(task)">X</strong>
+			</li>
+		</ul>
+	</template>
+</body>
+<script src="vue.js"></script>
+<script>
+	Vue.component('task-app',{
+		template:'#tast-template',
+		props:['list'],
+		computed:{
+			finished:function(){
+				// filter过滤list数组中的每一项task
+				return this.list.filter(function(task) {
+					// 过滤掉task中completed为true的task
+					return ! task.completed;
+					// 返回过滤后的结果长度
+				}).length;
+			}
+		},
+		methods:{
+			toggleTask:function(task){
+				task.completed = ! task.completed;
+			},
+			deleteTask:function(task){
+				// vue2.0以后取消了$remove，使用了js源生splice方法操作数组
+				for(var i=0;i<this.list.length;i++){
+					if(this.list[i] == task){
+						this.list.splice(i,1);
+						return;
+					}
+				}
+			}
+		}
+	})
+	new Vue({
+		el:'#app',
+		data:{
+			tasks:[
+				{body:'go to work',completed:false},
+				{body:'learn the Vue js',completed:true},
+				{body:'fly in the sky',completed:false}
+			]
+		}
+	})
+</script>
+</html>
