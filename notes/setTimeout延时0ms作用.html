@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>setTimeout 0ms</title>
+</head>
+<body>
+	<h1><code>DEMO1</code></h1>
+	<h2>1、未使用 <code>setTimeout</code>（未选中文本框内容）</h2>
+	<button id="makeinput">生成 input</button>
+	<p id="inpwrapper"></p>
+	<h2>2、使用 <code>setTimeout</code>（立即选中文本框内容）</h2>
+	<button id="makeinput2">生成 input</button></h2>
+	<p id="inpwrapper2"></p>
+
+	<h1><code>DEMO2</code></h1>
+	<h2>1、未使用 <code>setTimeout</code>(只有输入第二个字符时，前一个字符才显示出来)</h2>
+	<input type="text" id="input1" value=""/><div id="preview1"></div>
+	<h2>2、使用 <code>setTimeout</code>(输入时，字符同时显示出来)</h2>
+
+	<input type="text" id="input2" value=""/><div id="preview2"></div>
+</body>
+<script>
+(function(){
+
+	/*
+		setTimeout延时0毫秒的作用：
+
+		1、实现javascript的异步；
+		正常情况下javascript都是按照顺序执行的。但是我们可能让该语句后面的语句执行完再执行本身，这时就可以用到setTimeout延时0ms来实现了。
+		2、在事件中，setTimeout 会在其完成当前任何延宕事件的事件处理器的执行，以及完成文档当前状态更新后，告诉浏览器去启用 setTimeout 内注册的函数。
+
+
+		一道经典的面试题：
+		var fuc = [1,2,3];
+		for(var i in fuc){
+		  setTimeout(function(){console.log(fuc[i])},0);
+		  console.log(fuc[i]);
+		}
+		console.log('外面');
+		控制台打印结果：1 2 3 外面 3 3 3
+		这是因为setTimeout形成了自己的队列，所以在执行完了其他任务之后，才会按照顺序执行setTimeout队列里的内容
+	*/
+
+	/*
+		javascript是单线程执行的，执行完一个任务后才会去执行另一个任务，又因为调用有顺序，所以会出现如下例子中的问题，
+		而setTimeout 0ms会生成新的任务进入队列，这就相当于执行结束后调用setTimeout队列，从而解决如下问题。
+	*/
+	function get(id){
+		return document.getElementById(id);
+	}
+
+	window.onload = function(){
+		// onmousedown事件执行后，执行方法体，input获得焦点并选中个，但是onmousedown结束后会让按钮获得焦点，所以input又失去了焦点
+		get('makeinput').onmousedown = function(){
+			var input = document.createElement('input');
+			input.setAttribute('type', 'text');
+			input.setAttribute('value', 'test1');
+			get('inpwrapper').appendChild(input);
+			input.focus();
+			input.select();
+		}
+		// 添加一个setTimeout事件，让onmousedown执行结束后才去执行setTimeout，这样就可以让input获得焦点和选中了
+		get('makeinput2').onmousedown = function(){
+			var input = document.createElement('input');
+			input.setAttribute('type', 'text');
+			input.setAttribute('value', 'test1');
+			get('inpwrapper2').appendChild(input);
+			setTimeout(function(){
+				input.focus();
+				input.select();
+			}, 0);
+		}
+		// keypress事件之后才会改变dom元素，执行顺序：keydown → keypress → keyup。所以如果将下列keypress改成keypress就不会出现问题了
+		get('input1').onkeypress = function(){
+			get('preview1').innerHTML = this.value;
+		}
+		// 将keypress里面的事件延迟到浏览器更新相关DOM元素的状态之后执行，这是就能显示出所有字符串了
+		get('input2').onkeypress = function(){
+			setTimeout(function(){
+				get('preview2').innerHTML = get('input2').value;
+			},0 );
+		}
+	}
+	/*总结：setTimeout 0ms主要解决事件执行顺序问题。
+
+		当出现上述问题时，可以通过两种方法解决：
+		1.根据事件调用的顺序，更换为其他事件。
+		2.将要最后调用的事件放在setTimeout 0ms中，使事件调用完成后再执行setTimeout中的操作。
+	*/
+})();
+</script>
+</html>
