@@ -32,6 +32,9 @@ warning 不用理会。
 
 ### 第九步：切换到Git shell 命令行下，输入命令：
 先进入要commit文件的目录，这样才可以add 到（github上的项目其实就是一个个.git，必须进入.git下才可以进行操作）
+（git config --global user.name "your name"
+git config --global user.email "your_email@youremail.com"） 可能需要配置用户名和邮箱
+
 git init            //初始化，生成.git文件（第一次需要生成，以后如果在对应分之下如master，则可以不进行init操作）
 git add '文件名'     //可以add多个文件（包括文件夹，如果add的文件或文件夹名称中包含空格，则需要\进行转义）
 git commit -am '本次提交的题目备注信息等，强烈建议填写，不填写则需要不填写的命令；a则是all，代表提交所有， m是备注信息
