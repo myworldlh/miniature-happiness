@@ -6,7 +6,7 @@
 
 ### 第三步：填写名称，简介（可选），勾选Initialize this repository with a README选项，这是自动创建REAMDE.md文件，省的你再创建。
 
-### 第四步：安装Github shell程序，地址：http://windows.github.com/（如果下载不下来，可以把链接放到迅雷上下载）
+### 第四步：安装Github shell程序，地址：[http://windows.github.com/](http://windows.github.com/)如果下载不下来，可以把链接放到迅雷上下载
 
 ### 第五步：打开Git Shell，输入以下命令生成密钥来验证身份
 ```ssh-keygen -C 'github绑定的邮箱' -t rsa```
@@ -52,24 +52,25 @@ git push origin master  //将本地的文件上传到github的服务器上，这
 
 （注意：只有add的文件才能和库产生联系，只有commit后才能进行push，所以，操作的顺序为：add → commit → push）
 ```
-//错误提示如下，可能用不到
-如果执行git remote add origin https://github.com/Flowerowl/stumansys.git ，出现错误：
-　　fatal: remote origin already exists
-则执行以下语句：
-　　git remote rm origin
-再往后执行git remote add origin https://github.com/Flowerowl/stumansys.git 即可。
+//错误提示如下，可能用不到<br>
+如果执行git remote add origin https://github.com/Flowerowl/stumansys.git ，出现错误：<br>
+　　fatal: remote origin already exists<br>
+则执行以下语句：<br>
+　　git remote rm origin<br>
+再往后执行git remote add origin https://github.com/Flowerowl/stumansys.git 即可。<br>
 
-在执行git push origin master时，报错：
-　　error:failed to push som refs to.......
-则执行以下语句：
-　　git pull origin master
-先把远程服务器github上面的文件拉先来，再push 上去。
+在执行git push origin master时，报错：<br>
+　　error:failed to push som refs to.......<br>
+则执行以下语句：<br>
+　　git pull origin master<br>
+先把远程服务器github上面的文件拉先来，再push 上去。<br>
 
-最后，你可以去项目页面查看了~~代码上传成功！
+最后，你可以去项目页面查看了~~代码上传成功！<br>
 
-备注git常用语法：
+```备注git常用语法：
 1.添加文件       git add 文件名
 2.删除文件       git rm 文件名
 3.移动文件       git mv 文件名 目标目录
 4.返回指定版本   git reset --hard 项目版本号（commit记录中可以找到，历史版本中的full SHA）
                 git push -f origin master（强制提交）
+```
