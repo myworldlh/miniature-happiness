@@ -83,3 +83,27 @@ git pull origin master
 4.返回指定版本   git reset --hard 项目版本号（commit记录中可以找到，历史版本中的full SHA）
                 git push -f origin master（强制提交）
 ```
+
+#### 补充
+**可以clone的项目是远程仓库，clone或者init出来的是本地仓库。
+**对远程仓库进行修改需要clone库。
+
+```
+单独上传一个文件
+git init
+git add .
+git commit -am 'test'
+git remote add '仓库地址'
+git pull --rebase origin master  合并分支代码
+git push -u origin master
+```
+
+```
+删除一个文件
+git clone '库地地址
+git pull origin master 下拉先来最新的项目，防止别人push冲突 
+git rm -r --cached target  -r递归删除 --cached删除暂存区或分支上的文件, 但本地又需要使用, 只是不希望这个文件被版本控制
+git commit -m '删除了target'
+git push -u origin master
+```
+
