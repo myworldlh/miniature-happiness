@@ -118,6 +118,6 @@ git push -u origin master
 ##### 命令如下
 
 ```
-git commit -am 'message'  -a提交所有文件，必要参数，但是如果是新增文件，则需要先add
+git commit -am 'message'  -a提交所有文件，必要参数，但是如果是新增文件，则需要先 git add .
 git push
 ```
