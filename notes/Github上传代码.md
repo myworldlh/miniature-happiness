@@ -121,3 +121,15 @@ git push -u origin master
 git commit -am 'message'  -a提交所有文件，必要参数，但是如果是新增文件，则需要先 git add .
 git push
 ```
+
+#### Tips
+
+* 在clone项目的时候，如果使用了https路径下载，就会发生每次push都要输入用户名和密码的情况
+* 如果使用了https方式则可以这样修改
+```
+git remote -v  查看当前git origin路径https://github.com/myworldlh/miniature-happiness.git
+git remote rm origin 删除git origin
+git remote add origin git@github.com:myworldlh/Chrome-Workspace.git
+git remote -v 显示为git@github.com:myworldlh/Chrome-Workspace.git
+```
+* 这样下次再push的时候就不需要账号密码了
