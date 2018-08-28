@@ -60,21 +60,21 @@ git push origin master
 ```
 
 （注意：只有add的文件才能和库产生联系，只有commit后才能进行push，所以，操作的顺序为：add → commit → push）
-
-如果执行git remote add origin https://github.com/Flowerowl/stumansys.git ，出现错误：<br>
-```fatal: remote origin already exists```
+```
+如果执行git remote add origin https://github.com/Flowerowl/stumansys.git ，出现错误：
+fatal: remote origin already exists
 则执行以下语句：
-`git remote rm origin`
+git remote rm origin
 再往后执行:
-`git remote add origin https://github.com/Flowerowl/stumansys.git`<br>
+git remote add origin https://github.com/Flowerowl/stumansys.git
 
-在执行git push origin master时，报错：<br>
-`error:failed to push som refs to.......`
+在执行git push origin master时，报错：
+error:failed to push som refs to.......
 则执行以下语句：<br>
-`git pull origin master`
-先把远程服务器github上面的文件拉先来，再push 上去。<br>
-
-最后，你可以去项目页面查看了~~代码上传成功！<br>
+git pull origin master
+先把远程服务器github上面的文件拉先来，再push 上去。
+```
+最后，你可以去项目页面查看了~~代码上传成功！
 
 ```备注git常用语法：
 1.添加文件       git add 文件名
