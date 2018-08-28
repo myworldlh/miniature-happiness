@@ -32,10 +32,10 @@ warning 不用理会。
 
 ### 第九步：切换到Git shell 命令行下，输入命令：
 先进入要commit文件的目录，这样才可以add 到（github上的项目其实就是一个个.git，必须进入.git下才可以进行操作）
-```
+
 可能需要配置用户名和邮箱
-（git config --global user.name "your name"
-git config --global user.email "your_email@youremail.com"）
+git config --global user.name "your name"
+git config --global user.email "your_email@youremail.com"
 ``` 
 
 ```git init            //初始化，生成.git文件（第一次需要生成，以后如果在对应分之下如master，则可以不进行init操作）
@@ -52,17 +52,18 @@ git push origin master  //将本地的文件上传到github的服务器上，这
 
 （注意：只有add的文件才能和库产生联系，只有commit后才能进行push，所以，操作的顺序为：add → commit → push）
 ```
-//错误提示如下，可能用不到<br>
+错误提示如下，可能用不到<br>
 如果执行git remote add origin https://github.com/Flowerowl/stumansys.git ，出现错误：<br>
-　　fatal: remote origin already exists<br>
+`fatal: remote origin already exists`
 则执行以下语句：<br>
-　　git remote rm origin<br>
-再往后执行git remote add origin https://github.com/Flowerowl/stumansys.git 即可。<br>
+`git remote rm origin`
+再往后执行:<br>
+`git remote add origin https://github.com/Flowerowl/stumansys.git`
 
 在执行git push origin master时，报错：<br>
-　　error:failed to push som refs to.......<br>
+`error:failed to push som refs to.......`
 则执行以下语句：<br>
-　　git pull origin master<br>
+`git pull origin master`
 先把远程服务器github上面的文件拉先来，再push 上去。<br>
 
 最后，你可以去项目页面查看了~~代码上传成功！<br>
