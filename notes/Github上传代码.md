@@ -54,19 +54,19 @@ git remote add origin 库地址
 git pull --rebase origin master  // 合并代码（pull=fetch+merge）
 git push -u origin master  // 写了这句下面就不需要写了
 ---
-将本地的文件上传到github的服务器上，这里不需要写库地址，因为就在当前的.git下，push就能够找到自己再github上的库路径，而且，如果上传的库是主分支（master）的话，origin master也不需要写，直接git push就可以，如果是其他分支则需要写。
+将本地的文件上传到github的服务器上，这里不需要写库地址，因为就在当前的.git下，push就能够找到自己再github上的库路径，
+而且，如果上传的库是主分支（master）的话，origin master也不需要写，直接git push就可以，如果是其他分支则需要写。
 git push origin master
 ```
 
 （注意：只有add的文件才能和库产生联系，只有commit后才能进行push，所以，操作的顺序为：add → commit → push）
 
-错误提示如下，可能用不到<br>
 如果执行git remote add origin https://github.com/Flowerowl/stumansys.git ，出现错误：<br>
-fatal: remote origin already exists
-则执行以下语句：<br>
-git remote rm origin
-再往后执行:<br>
-git remote add origin https://github.com/Flowerowl/stumansys.git
+```fatal: remote origin already exists```
+则执行以下语句：
+`git remote rm origin`
+再往后执行:
+`git remote add origin https://github.com/Flowerowl/stumansys.git`<br>
 
 在执行git push origin master时，报错：<br>
 `error:failed to push som refs to.......`
