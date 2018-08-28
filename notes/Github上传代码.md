@@ -85,16 +85,16 @@ git pull origin master
 ```
 
 #### 补充
-** 可以clone的项目是远程仓库，clone或者init出来的是本地仓库。
-** 对远程仓库进行修改需要clone库。
+*可以clone的项目是远程仓库，clone或者init出来的是本地仓库。
+*对远程仓库进行修改需要clone库。
 
 ```
 单独上传一个文件
 git init
 git add .
-git commit -am 'test'
+git commit -m 'test'
 git remote add '仓库地址'
-git pull --rebase origin master  合并分支代码
+git pull --rebase origin master  --rebase合并分支代码
 git push -u origin master
 ```
 
