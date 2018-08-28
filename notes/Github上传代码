@@ -9,43 +9,49 @@
 ### 第四步：安装Github shell程序，地址：http://windows.github.com/（如果下载不下来，可以把链接放到迅雷上下载）
 
 ### 第五步：打开Git Shell，输入以下命令生成密钥来验证身份
-ssh-keygen -C 'github绑定的邮箱' -t rsa
+```ssh-keygen -C 'github绑定的邮箱' -t rsa```
 连续三个回车之后会在windows当前用户目录下生成.ssh文件夹，和linux一样。
-把文件夹下的id_rsa.pub文件内容全部复制。
+把文件夹下的`id_rsa.pub`文件内容全部复制。
 然后打开github账户设置
-打开左侧ssh keys
-右上角点击add ssh key
+打开左侧`ssh keys`
+右上角点击`add ssh key`
 然后在title随便输入，key栏粘贴刚才的密钥。
 
 ### 第六步：在Git Shell下输入命令测试刚才的公钥是否认证正确。
-ssh -T git@github.com
+`ssh -T git@github.com`
 正确结果会显示：
-Warning:Permanently added 'github.com,207.97.227.239' (RSA) to the list of known hosts.
-Hi Flowerowl! You've successfully authenticated, but GitHub does not provide shell access.
+```Warning:Permanently added 'github.com,207.97.227.239' (RSA) to the list of known hosts.
+Hi Flowerowl! You've successfully authenticated, but GitHub does not provide shell access.```
 warning 不用理会。
 
 ### 第七步：clone刚才新建的repository 到本地，输入命令：
-　git clone https://github.com/Flowerowl/stumansys.git（也可以通过https地址进行克隆）
+```　git clone https://github.com/Flowerowl/stumansys.git（也可以通过https地址进行克隆）```
 这时会在目录下生成对应的库文件
 
 ### 第八步：将想上传的代码目录拷贝到此库目录下
 
 ### 第九步：切换到Git shell 命令行下，输入命令：
 先进入要commit文件的目录，这样才可以add 到（github上的项目其实就是一个个.git，必须进入.git下才可以进行操作）
+```
+可能需要配置用户名和邮箱
 （git config --global user.name "your name"
-git config --global user.email "your_email@youremail.com"） 可能需要配置用户名和邮箱
+git config --global user.email "your_email@youremail.com"）
+``` 
 
-git init            //初始化，生成.git文件（第一次需要生成，以后如果在对应分之下如master，则可以不进行init操作）
+```git init            //初始化，生成.git文件（第一次需要生成，以后如果在对应分之下如master，则可以不进行init操作）
 git add '文件名'     //可以add多个文件（包括文件夹，如果add的文件或文件夹名称中包含空格，则需要\进行转义）
 git commit -am '本次提交的题目备注信息等，强烈建议填写，不填写则需要不填写的命令；a则是all，代表提交所有， m是备注信息
-git remote add origin 库地址  //上传到github不要写这句话，所有的remote操作都是对应服务器的，本地上的上传应该在本地操作，本地是没有权限操作服务器的，
-                               如果用到，一般只能是上传到自己的服务器上，其他github的操作一律不要写remote，直接跳过这句话。
-                               库地址如:https://github.com/Flowerowl/stumansys.git
-git push origin master  //将本地的文件上传到github的服务器上，这里不需要写上面的库地址，因为就在当前的.git下，push就能够找到自己再github上的
+---
+#### 关联Github仓库（上传单独的文件而不是提交整个项目，需要使用一下语句）
+git remote add origin 库地址
+git pull --rebase origin master  // 合并代码（pull=fetch+merge）
+git push -u origin master  // 写了这句下面就不需要写了
+---
+git push origin master  //将本地的文件上传到github的服务器上，这里不需要写库地址，因为就在当前的.git下，push就能够找到自己再github上的
                           库路径，而且，如果上传的库是主分支（master）的话，origin master也不需要写，直接git push就可以，如果是其他分支则需要写。
 
 （注意：只有add的文件才能和库产生联系，只有commit后才能进行push，所以，操作的顺序为：add → commit → push）
-
+```
 //错误提示如下，可能用不到
 如果执行git remote add origin https://github.com/Flowerowl/stumansys.git ，出现错误：
 　　fatal: remote origin already exists
