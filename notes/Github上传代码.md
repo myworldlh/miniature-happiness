@@ -85,8 +85,8 @@ git pull origin master
 ```
 
 #### 补充
-*可以clone的项目是远程仓库，clone或者init出来的是本地仓库。
-*对远程仓库进行修改需要clone库。
+* 可以clone的项目是远程仓库，clone或者init出来的是本地仓库。
+* 对远程仓库进行修改需要clone库。
 
 ```
 单独上传一个文件
