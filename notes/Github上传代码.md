@@ -20,25 +20,28 @@
 ### 第六步：在Git Shell下输入命令测试刚才的公钥是否认证正确。
 `ssh -T git@github.com`
 正确结果会显示：
-```Warning:Permanently added 'github.com,207.97.227.239' (RSA) to the list of known hosts.
+```
+Warning:Permanently added 'github.com,207.97.227.239' (RSA) to the list of known hosts.
 Hi Flowerowl! You've successfully authenticated, but GitHub does not provide shell access.
 warning 不用理会。
+```
 
 ### 第七步：clone刚才新建的repository 到本地，输入命令：
+```
 git clone https://github.com/Flowerowl/stumansys.git
+```
 这时会在目录下生成对应的库文件
 
 ### 第八步：将想上传的代码目录拷贝到此库目录下
 
 ### 第九步：切换到Git shell 命令行下，输入命令：
+```
 先进入要commit文件的目录，这样才可以add 到（github上的项目其实就是一个个.git，必须进入.git下才可以进行操作）
 
 可能需要配置用户名和邮箱
 git config --global user.name "your name"
 git config --global user.email "your_email@youremail.com"
-``` 
 
-```
 初始化，生成.git文件（第一次需要生成，以后如果在对应分之下如master，则可以不进行init操作）
 git init
 可以add多个文件（包括文件夹，如果add的文件或文件夹名称中包含空格，则需要\进行转义）<br> 上传全部使用--all或者 .
@@ -52,17 +55,18 @@ git pull --rebase origin master  // 合并代码（pull=fetch+merge）
 git push -u origin master  // 写了这句下面就不需要写了
 ---
 将本地的文件上传到github的服务器上，这里不需要写库地址，因为就在当前的.git下，push就能够找到自己再github上的库路径，而且，如果上传的库是主分支（master）的话，origin master也不需要写，直接git push就可以，如果是其他分支则需要写。
-git push origin master  
+git push origin master
+```
 
 （注意：只有add的文件才能和库产生联系，只有commit后才能进行push，所以，操作的顺序为：add → commit → push）
-```
+
 错误提示如下，可能用不到<br>
 如果执行git remote add origin https://github.com/Flowerowl/stumansys.git ，出现错误：<br>
-`fatal: remote origin already exists`
+fatal: remote origin already exists
 则执行以下语句：<br>
-`git remote rm origin`
+git remote rm origin
 再往后执行:<br>
-`git remote add origin https://github.com/Flowerowl/stumansys.git`
+git remote add origin https://github.com/Flowerowl/stumansys.git
 
 在执行git push origin master时，报错：<br>
 `error:failed to push som refs to.......`
