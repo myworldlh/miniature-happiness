@@ -135,5 +135,5 @@ git remote -v 显示为git@github.com:myworldlh/Chrome-Workspace.git
 * 这样下次再push的时候就不需要账号密码了
 
 * 提交项目遇到问题:`warning: LF will be replaced by CRLF`
-* 在add文件的时候，出现了关于换行的问题，可以用下面的代码解决warning
+* 在add文件的时候，出现了关于换行的问题，可以用下面的代码解决警告<br>
 ```$git config --global core.autocrlf true```
