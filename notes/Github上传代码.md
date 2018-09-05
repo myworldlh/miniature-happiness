@@ -134,6 +134,13 @@ git remote -v 显示为git@github.com:myworldlh/Chrome-Workspace.git
 ```
 * 这样下次再push的时候就不需要账号密码了
 
+
+
 * 提交项目遇到问题:`warning: LF will be replaced by CRLF`
 * 在add文件的时候，出现了关于换行的问题，可以用下面的代码解决警告<br>
 ```$git config --global core.autocrlf true```
+
+
+* 提交项目出现安全问题："potential security vulnerabilities"，下面提示的解决办法是不上传package-lock.json
+* 解决办法是在上传的项目中删除掉package-lock.json，然后再.gitignore文件中设置不上传到github的文件/package-lock.json
+* 然后本地更新一下git，再push就可以了(就算本地再生成该文件也不会上传，就不会报这个安全警告了)
