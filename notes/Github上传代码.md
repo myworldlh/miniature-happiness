@@ -107,6 +107,15 @@ git commit -m '删除了target'
 git push -u origin master
 ```
 
+```
+git中本地误删了文件，找回办法：
+git status  // 查看工作区的变化（查看误删了的文件）
+git reset HEAD 要恢复的文件
+git checkout 要恢复的文件
+
+这样就找回误删的文件了！
+```
+
 #### 再次补充
 通常管理仓库是比较简单的，下载下来一直管理本地仓库即可：
 * 将项目clone下来，在本地仓库管理，然后再commit到远程仓库中
