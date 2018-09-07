@@ -88,8 +88,8 @@ git pull origin master
 * 可以clone的项目是远程仓库，clone或者init出来的是本地仓库。
 * 对远程仓库进行修改需要clone库。
 
-```
 单独上传一个文件
+```
 git init
 git add .
 git commit -m 'test'
@@ -98,8 +98,8 @@ git pull --rebase origin master  --rebase合并分支代码
 git push -u origin master
 ```
 
-```
 删除一个文件
+```
 git clone '库地地址
 git pull origin master 下拉先来最新的项目，防止别人push冲突 
 git rm -r --cached target  -r递归删除 --cached删除暂存区或分支上的文件, 但本地又需要使用, 只是不希望这个文件被版本控制
@@ -107,8 +107,8 @@ git commit -m '删除了target'
 git push -u origin master
 ```
 
-```
 git中本地误删了文件，找回办法：
+```
 git status  // 查看工作区的变化（查看误删了的文件）
 git reset HEAD 要恢复的文件
 git checkout 要恢复的文件
@@ -146,10 +146,15 @@ git remote -v 显示为git@github.com:myworldlh/Chrome-Workspace.git
 
 
 * 提交项目遇到问题:`warning: LF will be replaced by CRLF`
-* 在add文件的时候，出现了关于换行的问题，可以用下面的代码解决警告<br>
-```$git config --global core.autocrlf true```
+* 在add文件的时候，出现了关于换行的问题，可以用下面的代码解决警告
+```
+$git config --global core.autocrlf true
+```
 
 
-* 提交项目出现安全问题："potential security vulnerabilities"，下面提示的解决办法是不上传package-lock.json
-* 解决办法是在上传的项目中删除掉package-lock.json，然后再.gitignore文件中设置不上传到github的文件/package-lock.json
-* 然后本地更新一下git，再push就可以了(就算本地再生成该文件也不会上传，就不会报这个安全警告了)
+* 提交项目出现安全问题："potential security vulnerabilities"
+```
+解决办法是不上传package-lock.json
+解决办法是在上传的项目中删除掉package-lock.json，然后再.gitignore文件中设置不上传到github的文件/package-lock.json
+然后本地更新一下git，再push就可以了(就算本地再生成该文件也不会上传，就不会报这个安全警告了)
+```
